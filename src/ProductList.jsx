@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem } from "./CartSlice";
 import "./ProductList.css";
 import CartItem from "./CartItem";
 function ProductList() {
   const [showCart, setShowCart] = useState(false);
+  const [addedToCart, setAddedToCart] = useState({});
   const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
+  const dispatch = useDispatch();
+  useEffect(() => {
+    console.log(addedToCart);
+  }, [addedToCart]);
 
   const plantsArray = [
     {
@@ -281,6 +288,16 @@ function ProductList() {
     e.preventDefault();
     setShowCart(false);
   };
+
+  const handleAddToCart = (plant) => {
+    dispatch(addItem(plant));
+    setAddedToCart((prevState) => {
+      if (prevState[plant.name]) {
+        return prevState;
+      }
+      return { ...prevState, [plant.name]: true };
+    });
+  };
   return (
     <div>
       <div className="navbar" style={styleObj}>
@@ -350,7 +367,12 @@ function ProductList() {
                         <div className="product-title">{plant.name}</div>
                         <div>{plant.description}</div>
                         <div className="product-price">{plant.cost}</div>
-                        <button className="product-button">Add to Cart</button>
+                        <button
+                          className="product-button"
+                          onClick={() => handleAddToCart(plant)}
+                        >
+                          Add to Cart
+                        </button>
                       </div>
                     );
                   })}
