@@ -321,6 +321,7 @@ function ProductList() {
       return { ...prevState, [plant.name]: true };
     });
   };
+
   return (
     <div>
       <div className="navbar" style={styleObj}>
@@ -396,6 +397,7 @@ function ProductList() {
                           className={`product-button ${
                             inCart ? "added-to-cart" : ""
                           }`}
+                          disabled={inCart}
                           onClick={() => handleAddToCart(plant)}
                         >
                           {inCart ? "Added to Cart" : "Add to Cart"}
