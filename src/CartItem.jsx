@@ -37,6 +37,10 @@ const CartItem = ({ onContinueShopping }) => {
     dispatch(removeItem(item.name));
   };
 
+  const handleCheckoutShopping = (e) => {
+    alert("Functionality to be added for future reference");
+  };
+
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) =>
     item.quantity * parseInt(item.cost.slice(1));
@@ -94,7 +98,12 @@ const CartItem = ({ onContinueShopping }) => {
           Continue Shopping
         </button>
         <br />
-        <button className="get-started-button1">Checkout</button>
+        <button
+          className="get-started-button1"
+          onClick={(e) => handleCheckoutShopping(e)}
+        >
+          Checkout
+        </button>
       </div>
     </div>
   );
