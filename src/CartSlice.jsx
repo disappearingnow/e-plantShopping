@@ -11,16 +11,18 @@ export const CartSlice = createSlice({
       const existsInCart = state.items.find((item) => item.name === name);
       if (typeof existsInCart === "undefined") {
         state.items.push({
-          name: name,
-          image: image,
-          cost: cost,
+          name,
+          image,
+          cost,
           quantity: 1,
         });
       } else {
         existsInCart.quantity++;
       }
     },
-    removeItem: (state, action) => {},
+    removeItem: (state, action) => {
+      state.items = state.items.filter((item) => item.name !== action.payload);
+    },
     updateQuantity: (state, action) => {},
   },
 });
