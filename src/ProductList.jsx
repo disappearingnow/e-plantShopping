@@ -23,6 +23,18 @@ function ProductList() {
     }
   }, [cart.items]);
 
+  useEffect(() => {
+    const obj = {};
+    for (const plantName in addedToCart) {
+      if (
+        typeof cart.items.find((cartItem) => cartItem.name === plantName) !==
+        "undefined"
+      )
+        obj[plantName] = true;
+    }
+    setAddedToCart(obj);
+  }, [cart.items]);
+
   const plantsArray = [
     {
       category: "Air Purifying Plants",
@@ -369,10 +381,7 @@ function ProductList() {
                 <h1>{plantGroup.category}</h1>
                 <div className="product-list">
                   {plantGroup.plants.map((plant, pIndex) => {
-                    const inCart =
-                      typeof cart.items.find(
-                        (item) => item.name === plant.name
-                      ) !== "undefined";
+                    const inCart = plant.name in addedToCart;
                     return (
                       <div key={pIndex} className="product-card">
                         <img
