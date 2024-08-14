@@ -7,10 +7,20 @@ function ProductList() {
   const [showCart, setShowCart] = useState(false);
   const [addedToCart, setAddedToCart] = useState({});
   const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
+  const [cartQuantity, setCartQuantity] = useState(0);
   const dispatch = useDispatch();
-  const cart = useSelector((state)=>state.cart)
+  const cart = useSelector((state) => state.cart);
+
   useEffect(() => {
-    console.log(cart.items);
+    if (cart.items.length > 0) {
+      let totalQuantity = 0;
+      for (let i = 0; i < cart.items.length; i++) {
+        totalQuantity += cart.items[i].quantity;
+      }
+      setCartQuantity(totalQuantity);
+    } else {
+      setCartQuantity(0);
+    }
   }, [cart.items]);
 
   const plantsArray = [
@@ -345,6 +355,7 @@ function ProductList() {
                     id="mainIconPathAttribute"
                   ></path>
                 </svg>
+                <div className="cart_quantity_count">{cartQuantity}</div>
               </h1>
             </a>
           </div>
