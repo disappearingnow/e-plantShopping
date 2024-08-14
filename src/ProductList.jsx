@@ -369,6 +369,10 @@ function ProductList() {
                 <h1>{plantGroup.category}</h1>
                 <div className="product-list">
                   {plantGroup.plants.map((plant, pIndex) => {
+                    const inCart =
+                      typeof cart.items.find(
+                        (item) => item.name === plant.name
+                      ) !== "undefined";
                     return (
                       <div key={pIndex} className="product-card">
                         <img
@@ -380,10 +384,12 @@ function ProductList() {
                         <div>{plant.description}</div>
                         <div className="product-price">{plant.cost}</div>
                         <button
-                          className="product-button"
+                          className={`product-button ${
+                            inCart ? "added-to-cart" : ""
+                          }`}
                           onClick={() => handleAddToCart(plant)}
                         >
-                          Add to Cart
+                          {inCart ? "Added to Cart" : "Add to Cart"}
                         </button>
                       </div>
                     );
